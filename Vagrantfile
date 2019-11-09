@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
             nodeInstance.vm.hostname = currentNode["name"]
 
             if currentNode["vagrantIp"] != "None"
-               puts currentNode["vagrantIp"]
+                nodeInstance.vm.network "private_network", :ip: currentNode["vagrantIp"]
             end
 
             nodeInstance.vm.provider "virtualbox" do |v|
