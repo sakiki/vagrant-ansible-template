@@ -13,8 +13,22 @@ Vagrant.configure(2) do |config|
             nodeInstance.vm.box = currentNode["imageName"]
             nodeInstance.vm.hostname = currentNode["name"]
 
-            if currentNode["vagrantIp"] != "None"
+            if currentNode["vagrantIp"] != nil
                 nodeInstance.vm.network "private_network", ip: currentNode["vagrantIp"]
+            end
+
+            ansibleVars = currentNode["ansible"]
+
+            nodeInstance.vm.provision "ansible" do |ansible|
+                if ansibleVars["playbook"] != nil
+                    ansible.playbook = ansibleVars["playbook"]
+                end
+                if ansibleVars["groups"] != nil
+                    ansible.groups = ansibleVars["groups"]
+                end
+                if ansibleVars["extraVars"] != nil
+                    ansible.extra_vars = ansibleVars["extraVars"]
+                end
             end
 
             nodeInstance.vm.provider "virtualbox" do |v|
