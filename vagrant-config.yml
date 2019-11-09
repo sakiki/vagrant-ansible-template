@@ -1,0 +1,9 @@
+- name: node-1 # Required. Node name (hostname as well)
+  imageName: ubuntu/bionic64 # Required. Box image for this node
+  mem: 2048 # Required. Memory for this node
+  cpu: 2 # Required. Cores for this node
+  vagrantIp: 192.168.50.10 # Ip Address accessible via ansible/Vagrant
+  ansible:
+    playbook: # Relative path to playbook
+    groups: # Group information to feed to Vagrant
+    extraVars: 
