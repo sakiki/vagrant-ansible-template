@@ -3,7 +3,7 @@
   mem: 2048 # Required. Memory for this node
   cpu: 2 # Required. Cores for this node
   vagrantIp: 192.168.50.10 # Ip Address accessible via ansible/Vagrant
-  ansible:
-    playbook: # Relative path to playbook
-    groups: # Group information to feed to Vagrant
-    extraVars: 
+  #ansible:
+    #playbook: # Relative path to playbook
+    #groups: # Group information to feed to Vagrant
+    #extraVars: 

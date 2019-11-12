@@ -4,7 +4,7 @@
 # Ensure yaml module is loaded
 require 'yaml'
 
-listedNodes = YAML.load_file('vagrant-config.yml')
+listedNodes = YAML.load_file('config.yml')
 
 Vagrant.configure(2) do |config|
     listedNodes.each do |currentNode|
@@ -19,17 +19,21 @@ Vagrant.configure(2) do |config|
 
             ansibleVars = currentNode["ansible"]
 
-            nodeInstance.vm.provision "ansible" do |ansible|
-                if ansibleVars["playbook"] != nil
-                    ansible.playbook = ansibleVars["playbook"]
-                end
-                if ansibleVars["groups"] != nil
-                    ansible.groups = ansibleVars["groups"]
-                end
-                if ansibleVars["extraVars"] != nil
-                    ansible.extra_vars = ansibleVars["extraVars"]
-                end
-            end
+	    if ansibleVars != nil 
+
+		nodeInstance.vm.provision "ansible" do |ansible|
+		    if ansibleVars["playbook"] != nil
+			ansible.playbook = ansibleVars["playbook"]
+		    end
+		    if ansibleVars["groups"] != nil
+			ansible.groups = ansibleVars["groups"]
+		    end
+		    if ansibleVars["extraVars"] != nil
+			ansible.extra_vars = ansibleVars["extraVars"]
+		    end
+		end
+
+	    end
 
             nodeInstance.vm.provider "virtualbox" do |v|
                 v.memory = currentNode["mem"]
